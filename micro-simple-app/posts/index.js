@@ -10,11 +10,18 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+const posts = {};
+
 app.post('/posts', async (req, res) => {
   const id = randomBytes(4).toString('hex');
   const {
     title
   } = req.body;
+
+  posts[id] = {
+    id,
+    title
+  }
 
   await axios.post('http://localhost:4005/events', {
     type: 'POST_CREATED',
