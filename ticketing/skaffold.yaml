@@ -1,0 +1,16 @@
+apiVersion: skaffold/v2beta2
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+    - infra/k8s/*
+build:
+  artifacts:
+  - image: ngquangan/ticketing-auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
