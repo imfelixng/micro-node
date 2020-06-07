@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
+import jwt from 'jsonwebtoken';
 
 import { User } from '../models/user';
 
@@ -35,6 +36,19 @@ router.post(
         });
 
         await user.save();
+
+        // Generate JWT
+        const userJWT = jwt.sign(
+            {
+                email: user.email,
+                _id: user._id,
+            },
+            'thisisbestsecretkey'
+        );
+
+        req.session = {
+            jwt: userJWT,
+        } as any;
 
         return res.status(201).send(user);
     }
