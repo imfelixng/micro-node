@@ -16,10 +16,12 @@
     "mongoose": "^5.9.12"
   },
   "devDependencies": {
+    "@types/cookie-session": "^2.0.40",
     "@types/express": "^4.17.6",
     "@types/express-session": "^1.17.0",
     "@types/jsonwebtoken": "^8.3.9",
     "@types/mongoose": "^5.7.15",
+    "@types/node": "^14.0.11",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }
