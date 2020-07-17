@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm i
+RUN npm i --only=prod
 
 COPY . .
 
