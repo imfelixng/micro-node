@@ -40,3 +40,32 @@ it('return a 400 with missing email and password', async () => {
         })
         .expect(400);
 });
+
+it('disallow duplicate email', async () => {
+    await request(app)
+    .post('/api/users/signup')
+    .send({
+        email: 'test@test.com',
+        password: 'password'
+    })
+    .expect(201);
+    return request(app)
+        .post('/api/users/signup')
+        .send({
+            email: 'test@test.com',
+            password: 'password'
+        })
+        .expect(422);
+});
+
+it('set a cookie after successful signup request', async () => {
+    const response = await request(app)
+        .post('/api/users/signup')
+        .send({
+            email: 'test@test.com',
+            password: 'password'
+        })
+        .expect(201);
+
+    expect(response.get('Set-Cookie')).toBeDefined();
+});
