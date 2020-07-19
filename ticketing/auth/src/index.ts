@@ -5,9 +5,17 @@ import { app } from './app';
     if (!process.env.JWT_KEY) {
         throw new Error('JWT_KEY must be defined');
     }
+
+    if (!process.env.MONGO_URI) {
+        throw new Error('MONGO_URI must be defined');
+    }
+
+    if (!process.env.MONGO_DB_NAME) {
+        throw new Error('MONGO_DB_NAME must be defined');
+    }
     try {
-        await mongoose.connect('mongodb://auth-mongo-srv', {
-            dbName: 'auth',
+        await mongoose.connect(process.env.MONGO_URI, {
+            dbName: process.env.MONGO_DB_NAME,
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: true,

@@ -16,6 +16,10 @@ spec:
         - name: auth
           image: ngquangan/ticketing-auth
           env:
+            - name: MONGO_URI
+              value: 'mongodb://auth-mongo-srv'
+            - name: MONGO_DB_NAME
+              value: 'auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
