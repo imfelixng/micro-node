@@ -1,5 +1,5 @@
 // Re-export
-// Trick to update code
+// Trick to update code for common code module
 export * from './errors/bad-request-error';
 export * from './errors/custom-error';
 export * from './errors/database-connection-error';
