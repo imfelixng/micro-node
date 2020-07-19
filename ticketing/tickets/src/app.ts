@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 
 import { errorHandler, NotFoundError, currentUser } from '@anqtickets/common';
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
+import { indexTicketRouter } from './routes';
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(cookieSession({
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 app.all('*', async () => {
     // Must be handle case async function. Because don't return any promise.
