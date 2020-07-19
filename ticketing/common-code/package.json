@@ -1,0 +1,29 @@
+{
+  "name": "@anqtickets/common",
+  "version": "1.0.5",
+  "description": "This is shared lib",
+  "main": "./build/index.js",
+  "license": "MIT",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "del ./build/*",
+    "pub": "git add . && git commit -m \"Update lib\" && npm version patch && npm run build && npm publish"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@types/cookie-session": "^2.0.41",
+    "@types/express": "^4.17.7",
+    "@types/jsonwebtoken": "^8.5.0",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
