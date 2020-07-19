@@ -14,6 +14,14 @@ build:
       manual:
         - src: 'src/**/*.ts'
           dest: .
+  - image: ngquangan/ticketing-tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
   - image: ngquangan/ticketing-client
     context: client
     docker:
