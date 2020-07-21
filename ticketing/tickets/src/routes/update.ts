@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { Ticket } from '../models/ticket';
 import { body, param } from 'express-validator';
-import { validateRequest, NotFoundError, requireAuth } from "@anqtickets/common";
+import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from "@anqtickets/common";
 
 const router = express.Router();
 
@@ -10,8 +10,11 @@ router.put(
     requireAuth,
     [
         param('id')
-        .isMongoId()
-        .withMessage('Id is invalid')
+            .isMongoId()
+            .withMessage('Id is invalid'),
+        body('price')
+            .isFloat({ gt: 0 })
+            .withMessage('Price must be greater than 0')
     ],
     validateRequest,
     async (req: Request, res: Response) => {
@@ -20,7 +23,19 @@ router.put(
         if (!ticket) {
             throw new NotFoundError();
         }
-        return res.status(200).send(ticket);
+
+        if (ticket.userId !== req.currentUser.id) {
+            throw new NotAuthorizedError();
+        }
+
+        ticket.set({
+            title: req.body.title,
+            price: req.body.price,
+        });
+
+        await ticket.save();
+
+        return res.send(ticket);
     }
 );
 
