@@ -8,6 +8,7 @@
     "listen": "ts-node-dev --notify false src/listener.ts"
   },
   "dependencies": {
+    "@anqtickets/common": "^1.0.9",
     "@types/node": "^14.0.24",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.0.0-pre.52",

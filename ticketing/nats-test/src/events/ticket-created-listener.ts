@@ -1,8 +1,5 @@
 import nats from 'node-nats-streaming';
-import { Listener } from "./base-listener";
-import { TicketCreatedEvent } from './ticket-created-events';
-import { Subjects } from './subjects';
-
+import { Listener, TicketCreatedEvent, Subjects } from '@anqtickets/common';
 class TicketCreatedListener extends Listener<TicketCreatedEvent> {
     subject: Subjects.TicketCreated = Subjects.TicketCreated;
     queueGroupName = 'payment-service';
