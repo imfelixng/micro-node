@@ -7,7 +7,7 @@ import { errorHandler, NotFoundError, currentUser } from '@anqtickets/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
 import { indexTicketRouter } from './routes';
-import { updateicketRouter } from './routes/update';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(currentUser);
 app.use(createTicketRouter);
 app.use(showTicketRouter);
 app.use(indexTicketRouter);
-app.use(updateicketRouter);
+app.use(updateTicketRouter);
 
 app.all('*', async () => {
     // Must be handle case async function. Because don't return any promise.
