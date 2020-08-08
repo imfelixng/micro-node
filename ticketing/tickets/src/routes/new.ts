@@ -30,7 +30,7 @@ router.post("/api/tickets",
 
   try {
     await ticket.save();
-    new TicketCreatedPublisher(natsWrapper.client)
+    await new TicketCreatedPublisher(natsWrapper.client)
       .publish({
         id: ticket.id,
         title: ticket.title,
