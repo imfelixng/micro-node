@@ -27,6 +27,8 @@ router.put(
             throw new NotAuthorizedError();
         }
 
+        console.log('AAAAAA');
+
         ticket.set({
             title: req.body.title,
             price: req.body.price,
