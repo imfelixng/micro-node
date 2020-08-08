@@ -3,7 +3,7 @@ import { requireAuth, validateRequest } from "@anqtickets/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/ticket";
 import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
-import { natsWrapper } from "../configs/nats-wrapper";
+import { natsWrapper } from "../nats-wrapper";
 
 const router = express.Router();
 

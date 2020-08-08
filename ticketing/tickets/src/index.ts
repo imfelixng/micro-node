@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { app } from './app';
-import { natsWrapper } from './configs/nats-wrapper';
+import { natsWrapper } from './nats-wrapper';
 
 (async () => {
     if (!process.env.JWT_KEY) {
