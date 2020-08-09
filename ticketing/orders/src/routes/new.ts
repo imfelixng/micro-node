@@ -1,10 +1,14 @@
 import express, { Request, Response } from "express";
-import { requireAuth, validateRequest } from "@anqtickets/common";
+import { requireAuth, validateRequest, NotFoundError, BadRequestError } from "@anqtickets/common";
 import { body } from "express-validator";
 
 import mongoose from 'mongoose';
+import { Ticket } from "../models/ticket";
+import { Order, OrderStatus } from "../models/order";
 
 const router = express.Router();
+
+const EXPIRATION_WINDOW_SECONDS = 15 * 60; // 15 minutes
 
 router.post(
     '/api/orders',
@@ -18,8 +22,33 @@ router.post(
     ],
     validateRequest,
     async (req: Request, res: Response) => {
-        
-        return res.status(200).send([]);
+        const { ticketId } = req.body;
+
+        const ticket  = await Ticket.findById(ticketId);
+
+        if (!ticket) {
+            throw new NotFoundError();
+        }
+
+        const isReserved = await ticket.isReserved();
+
+        if (isReserved) {
+            throw new BadRequestError('Ticket is already reserved')
+        }
+
+        const expiration = new Date();
+        expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+
+        const order = Order.build({
+            userId: req.currentUser.id,
+            ticket: ticketId,
+            expiresAt: expiration,
+            status: OrderStatus.CREATED,
+        });
+
+        await order.save();
+
+        return res.status(201).send(order);
     }
 );
 

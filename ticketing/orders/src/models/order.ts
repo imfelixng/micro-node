@@ -66,4 +66,5 @@ const Order = mongoose.model<OrderDoc, OrderModel>('Order', OrderSchema);
 
 export {
     Order,
+    OrderStatus
 }

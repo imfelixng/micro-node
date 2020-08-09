@@ -2,8 +2,6 @@ import request from 'supertest';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 import { natsWrapper } from '../../nats-wrapper';
-import { exception } from 'console';
-
 
 it('has a route handler listening to /api/tickets for post requests', async () => {
     const response = await request(app)
@@ -20,7 +18,7 @@ it('can only be accessed if the user if signed in', async () => {
     .expect(401);
 });
 
-it('returns a status other than 401 if ther user is signed', async () => {
+it('returns a status other than 401 if the user is signed', async () => {
     const cookie = global.signin();
     const response = await request(app)
     .post('/api/tickets')

@@ -55,7 +55,7 @@ it('disallow duplicate email', async () => {
             email: 'test@test.com',
             password: 'password'
         })
-        .expect(422);
+        .expect(400);
 });
 
 it('set a cookie after successful signup request', async () => {
