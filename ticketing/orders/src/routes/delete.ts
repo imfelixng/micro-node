@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import { requireAuth } from "@anqtickets/common";
+import { requireAuth, NotFoundError, NotAuthorizedError } from "@anqtickets/common";
+import { Order, OrderStatus} from "../models/order";
 
 const router = express.Router();
 
@@ -7,7 +8,21 @@ router.delete(
     '/api/orders/:orderId',
     requireAuth,
     async (req: Request, res: Response) => {
-        return res.status(200).send([]);
+        const { orderId } = req.params;
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            throw new NotFoundError();
+        }
+
+        if (order.userId !== req.currentUser.id) {
+            throw new NotAuthorizedError();
+        }
+
+        order.status = OrderStatus.CANCELLED;
+        await order.save(); 
+
+        return res.status(204).send(order);
     }
 );
 
