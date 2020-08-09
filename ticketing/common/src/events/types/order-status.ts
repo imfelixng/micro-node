@@ -4,7 +4,7 @@ export enum OrderStatus  {
     // User cancelled order or order is expired
     CANCELLED = 'cancelled',
     //
-    AWAITTING_PAYMENT = 'awaitting:payment',
+    AWAITING_PAYMENT = 'awaiting:payment',
     // User paid successfully
     COMPLETED = 'completed' 
 }
