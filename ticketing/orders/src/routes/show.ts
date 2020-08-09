@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { currentUser, requireAuth } from "@anqtickets/common";
+import { requireAuth } from "@anqtickets/common";
 
 const router = express.Router();
 
