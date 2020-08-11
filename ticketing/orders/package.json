@@ -16,7 +16,7 @@
     ]
   },
   "dependencies": {
-    "@anqtickets/common": "^1.0.18",
+    "@anqtickets/common": "^1.0.19",
     "@types/cookie-session": "^2.0.40",
     "@types/express": "^4.17.6",
     "@types/express-session": "^1.17.0",
