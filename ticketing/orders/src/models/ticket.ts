@@ -5,6 +5,7 @@ import { Order, OrderStatus } from './order';
 interface TicketAttrs {
   title: string;
   price: number;
+  id: string;
 }
 
 // This interface describes properties for Ticket Model
@@ -30,14 +31,6 @@ const TicketSchema = new mongoose.Schema(
       required: true,
       min: 0
     },
-    // userId: {
-    //   type: String,
-    //   required: true,
-    // },
-    // version: {
-    //   type: Number,
-    //   required: true,
-    // }
   },
   {
     toJSON: {
@@ -52,7 +45,11 @@ const TicketSchema = new mongoose.Schema(
 );
 
 const buildTicket = (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  return new Ticket({
+    _id: attrs.id,
+    title: attrs.title,
+    price: attrs.price,
+  });
 };
 
 // Add static func to schema => use Ticket.build
