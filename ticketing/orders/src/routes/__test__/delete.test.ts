@@ -4,6 +4,7 @@ import { Ticket } from '../../models/ticket';
 import { OrderStatus, Order } from '../../models/order';
 
 import mongoose from 'mongoose';
+import { natsWrapper } from '../../nats-wrapper';
 
 const buildTicket = async () => {
     const ticket = Ticket.build({
@@ -68,4 +69,23 @@ it('return an error if user delete order is created by another user', async () =
         .expect(401);
 });
 
-test.todo('emits an order cancelled event');
+it('emits an order cancelled event', async () => {
+    const ticket = await buildTicket();
+
+    const user = global.signin();
+
+    const { body: order } = await request(app)
+        .post('/api/orders')
+        .set('Cookie', user)
+        .send({
+            ticketId: ticket.id,
+        })
+        .expect(201);
+
+    await request(app)
+        .delete(`/api/orders/${order.id}`)
+        .set('Cookie', user)
+        .expect(204);
+
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
