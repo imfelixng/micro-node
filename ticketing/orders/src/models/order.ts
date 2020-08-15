@@ -1,3 +1,4 @@
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import mongoose from 'mongoose';
 import { OrderStatus } from '@anqtickets/common';
 import { TicketDoc } from './ticket';
@@ -17,6 +18,7 @@ interface OrderModel extends mongoose.Model<OrderDoc>{
 
 // This interface describes properties for Order Document
 interface OrderDoc extends mongoose.Document {
+    version: number;
     status: OrderStatus;
     expiresAt: Date;
     userId: string;
@@ -44,16 +46,19 @@ const OrderSchema = new mongoose.Schema(
     }
   },
   {
+    timestamps: true,
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;        
+        delete ret._id;   
         return ret;
       },
     },
   }
 );
+
+OrderSchema.set('versionKey', 'version');
+OrderSchema.plugin(updateIfCurrentPlugin);
 
 const buildOrder = (attrs: OrderAttrs) => {
     return new Order(attrs);
