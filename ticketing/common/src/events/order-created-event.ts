@@ -5,13 +5,14 @@ import { OrderStatus } from "./types";
 export interface OrderCreatedEvent {
     subject: Subjects.OrderCreated;
     data: {
-        id: string,
-        status: OrderStatus
-        userId: string,
-        expiresAt: string,
+        id: string;
+        version: number;
+        status: OrderStatus;
+        userId: string;
+        expiresAt: string;
         ticket: {
-            id: string,
-            price: number,
+            id: string;
+            price: number;
         }
     }
 }
