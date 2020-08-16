@@ -42,7 +42,7 @@ it('creates and save a ticket', async () => {
     expect(ticket.price).toEqual(data.price);
 });
 
-it('ack the message', async () => {
+it('acks the message', async () => {
     const { listener, data, msg } = await setup();
 
     // call onMessage func
