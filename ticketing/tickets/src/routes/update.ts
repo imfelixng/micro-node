@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { Ticket } from '../models/ticket';
 import { body, param } from 'express-validator';
-import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from "@anqtickets/common";
+import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError, BadRequestError } from "@anqtickets/common";
 import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
@@ -23,18 +23,24 @@ router.put(
             throw new NotFoundError();
         }
 
+        if (ticket.orderId) {
+            throw new BadRequestError('Cannot edit a resrved ticket');
+        }
+
         if (ticket.userId !== req.currentUser.id) {
             throw new NotAuthorizedError();
         }
-
-        console.log('AAAAAA');
 
         ticket.set({
             title: req.body.title,
             price: req.body.price,
         });
 
-        await ticket.save();
+        try {
+            await ticket.save();
+        } catch(err) {
+            throw new BadRequestError(err.message);
+        }
 
         new TicketUpdatedPublisher(natsWrapper.client).publish({
             id: ticket.id,
