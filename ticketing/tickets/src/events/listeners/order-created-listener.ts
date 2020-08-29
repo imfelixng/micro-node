@@ -9,7 +9,6 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     queueGroupName = queueGroupName;
     async onMessage(data: OrderCreatedEvent['data'], msg: Message): Promise<void> {
         const { id: orderId, ticket: { id: ticketId }} = data;
-        console.log('TICKET_ID: ', ticketId);
         const ticket = await Ticket.findById(ticketId);
 
         if (!ticket) {
