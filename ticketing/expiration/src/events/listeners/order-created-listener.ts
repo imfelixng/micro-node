@@ -10,9 +10,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
         const { id: orderId, expiresAt } = data;
 
         const delay = new Date(expiresAt).getTime() - new Date().getTime();
-
         console.log('Waiting in ', delay);
-
         await expirationQueue.add({ orderId }, { delay });
 
         msg.ack();

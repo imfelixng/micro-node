@@ -15,6 +15,11 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
             throw new Error('Order not found');
         }
 
+        // Prevent cancel order completed
+        if (order.status === OrderStatus.COMPLETED) {
+            return msg.ack();
+        }
+
         order.set({
             status: OrderStatus.CANCELLED,
         });
