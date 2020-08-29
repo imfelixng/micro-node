@@ -1,9 +1,9 @@
 import { Message } from 'node-nats-streaming';
 import mongoose from 'mongoose';
+import { TicketCreatedEvent } from "@anqtickets/common";
 
 import { TicketCreatedListener } from "../ticket-created-listener";
 import { natsWrapper } from "../../../nats-wrapper";
-import { TicketCreatedEvent } from "@anqtickets/common";
 import { Ticket } from '../../../models/ticket';
 
 const setup = async () => {
