@@ -52,6 +52,6 @@ import { natsWrapper } from './nats-wrapper';
 
 
     app.listen(3000, () => {
-        console.log('Tickets service starting at port 3000!!!!');
+        console.log('Payments service starting at port 3000!!!!');
     });
 })();
