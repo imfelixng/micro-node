@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
 import { errorHandler, NotFoundError, currentUser } from '@anqtickets/common';
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(cookieSession({
 }));
 
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.all('*', async () => {
     // Must be handle case async function. Because don't return any promise.
