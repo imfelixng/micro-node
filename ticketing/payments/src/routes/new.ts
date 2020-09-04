@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError, OrderStatus, BadRequestError } from "@anqtickets/common";
 import { body } from "express-validator";
 import { Order } from "../models/order";
+import { stripe } from "../stripe";
 
 const router = express.Router();
 
@@ -33,8 +34,19 @@ router.post('/api/payments',
             throw new BadRequestError('Can not pay for an cancelled order');
         }
 
-        return res.send({ success: true });
+        console.log('TOKEN: ', token);
 
+        try {
+            await stripe.charges.create({
+                amount: order.price * 100,
+                source: token,
+                currency: 'usd'
+            });
+        } catch (e) {
+            console.log(e);
+        }
+
+        return res.send({ success: true });
     }
 );
 
