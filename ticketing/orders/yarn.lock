@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@anqtickets/common@^1.0.25":
-  version "1.0.25"
-  resolved "https://registry.yarnpkg.com/@anqtickets/common/-/common-1.0.25.tgz#8bcb53e63169e0d5ba140373a8914f4a80fb6894"
-  integrity sha512-fB1pQKf35Abr+9bsGIZu79y4d4CMLf7K48OZe3r0S9iEXhUV66ez6/FZhBjKhGwSHJgtBqG2OT0HyhkTLCJt9Q==
+"@anqtickets/common@^1.0.26":
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/@anqtickets/common/-/common-1.0.26.tgz#fe74a6a840c348a0d6c163af88810496f4f24ba3"
+  integrity sha512-YfTuMtBhTncFefULW10jApbW70wrPMjkuoxuYsRFU5RuDTK19vxg9gZu8103E20N4fwlr+OvwIg6DiP5DSRdmg==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.7"
