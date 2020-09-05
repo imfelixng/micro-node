@@ -6,7 +6,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
     return (
         <div className = "container">
             <Header currentUser = {currentUser}/>
-            <Component {...pageProps}/>
+            <Component currentUser = {currentUser} {...pageProps}/>
         </div>
     );
 };
@@ -16,8 +16,9 @@ AppComponent.getInitialProps = async (appContext) => {
     // WHEN NAVIGATE WITH ROUTER -> CLIENT EXECUTED
     const client = buildClient(appContext.ctx);
     const { data } = await client.get('/api/users/currentuser');
-    
-    const pageProps = (await appContext.Component?.getInitialProps?.(appContext.ctx)) || {};
+
+    // pass client built to child component
+    const pageProps = (await appContext.Component.getInitialProps?.(appContext.ctx, client, data.currentUser)) || {};
 
     return {
         pageProps,

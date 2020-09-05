@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useRequest from '../../hooks/user-request';
 import { useRouter } from 'next/router'
 
-export default () => {
+const SignUp =  () => {
     const router = useRouter()
 
     const [email, setEmail] = useState('');
@@ -44,3 +44,5 @@ export default () => {
         </form>
     )
 };
+
+export default SignUp;
