@@ -1,6 +1,6 @@
 {
   "name": "@anqtickets/common",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "This is shared lib",
   "main": "./build/index.js",
   "license": "MIT",
