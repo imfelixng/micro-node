@@ -1,14 +1,41 @@
-const LandingPage = ({ currentUser }) => {
-    if (currentUser) {
-        return <h1>You are signed in</h1>
-    }
+const { default: Link } = require("next/link")
+
+const LandingPage = ({ currentUser, tickets }) => {
+
+    const ticketList = tickets?.map((ticket, index) => {
+        return (
+            <tr key = {ticket.id}>
+                <td>{index + 1}</td>
+                <td><Link href = "#"><a>{ticket.title}</a></Link></td>
+                <td>{ticket.price}</td>
+            </tr>
+        )
+    });
+
     return (
-        <h1>You are NOT sign in</h1>
-    )
+        <div>
+            <h1>Tickets</h1>
+            <table className = "table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Price ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {ticketList || (<div>Do not have any tickets yet!</div>)}
+                </tbody>
+            </table>
+        </div>
+    );
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-    return {};
+    const { data } = await client.get('/api/tickets');
+    return {
+        tickets: data
+    };
 };
 
 export default LandingPage;
