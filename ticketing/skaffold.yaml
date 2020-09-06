@@ -3,7 +3,8 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-    - infra/k8s/*
+      - infra/k8s/*
+      - infra/k8s-dev/*
 build:
   artifacts:
   - image: ngquangan/ticketing-auth

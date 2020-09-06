@@ -1,0 +1,20 @@
+name: deloy-manifests
+
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - 'infra/**'
+
+jobs:
+  buid:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save ticketing
+      # Restart deployment to get latest code from image
+      - run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod

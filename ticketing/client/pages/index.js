@@ -1,7 +1,7 @@
 const { default: Link } = require("next/link")
 
 const LandingPage = ({ currentUser, tickets }) => {
-
+    console.log('Client App');
     const ticketList = tickets?.map((ticket, index) => {
         return (
             <tr key = {ticket.id}>
