@@ -11,7 +11,7 @@ router.get(
         const orders = await Order.find({
             userId: req.currentUser.id,
         }).populate('ticket');
-        
+
         return res.status(200).send(orders);
     }
 );

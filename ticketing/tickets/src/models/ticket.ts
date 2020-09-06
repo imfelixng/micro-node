@@ -6,6 +6,7 @@ interface TicketAttrs {
   title: string;
   price: number;
   userId: string;
+  orderId?: string;
 }
 
 // This interface describes properties for Ticket Model
